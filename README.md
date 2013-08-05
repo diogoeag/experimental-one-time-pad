@@ -1,6 +1,8 @@
 ### Selection Queries
 
 Now things will get interesting. In this section we will see how PDB uses SQL to select data from the database.
+Using the query method we get the result for any given query as a list of entries.
+These entries are represented as a map of column name to content.
 
 ```java
 Expression query =
@@ -20,7 +22,7 @@ for(Map<String, ResultColumn> result : results) {
 	- For each column a result is a Map that maps column names to ResultColumn objects.
 
 	.toXXX()
-	- ResultColumn provides methos to convert the data to the type of your preferebce.
+	- ResultColumn provides methods to convert the data to the type of your preference.
 	- Be aware that it might give an exception if you try to convert the underlying data to some incompatible type.
 
 Lets see this simple query in more detail.
