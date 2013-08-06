@@ -99,7 +99,7 @@ Depending on the policy you chose existing tables may be droped before creation.
 engine.addEntity(data_type_table);
 ```
 
-Lets now create the Providers and Streams tables:
+Let's now create the Providers and Streams tables:
 
 ```java
 DbEntity provider_table = 
@@ -202,7 +202,7 @@ engine.dropEntity("stream_to_module");
 ```comment
 .removeEntity(String name)
 - Removes the entity given the name.
-- Only if the schema policy is set to drop-create the entity will be dropped.
+- If the schema policy was set as drop-create the entity will be dropped.
 
 .dropEntity(String name)
 - Drops an entity given the name.
@@ -210,8 +210,7 @@ engine.dropEntity("stream_to_module");
 
 ### Alter Table
 
-Do not have to be so dramatic. Probably you just want to change something in the tables.
-With pulse you can change some aspects of a previously created tables.
+With PDB you can change some aspects of a previously created tables.
 Changes have to be made to each desired column, one at a time.
 
 ```java
@@ -248,8 +247,8 @@ DropPrimaryKey(Expression table)
 
 ### Insertion Queries
 
-Now that we have the structure of the database in place, lets play it with some data.
-An EntityEntry its our representation of an entry that we want to add to the database.
+Now that we have the structure of the database in place, let's play it with some data.
+An EntityEntry it's our representation of an entry that we want to add to the database.
 
 ```java
 EntityEntry data_type_entry =
@@ -289,7 +288,7 @@ long generatedKey = engine.persist("provider", provider_entry, true);
 
 ### Update and Delete Queries
 
-Now you may want to the update the data or simply erase it. Lets see how this is done.
+Now you may want to the update the data or simply erase it. Let's see how this is done.
 
 ```java
 engine.executeUpdate(
@@ -377,7 +376,7 @@ for(Map<String, ResultColumn> result : results) {
 	- ResultColumn provides methods to convert the data to the type of your preference.
 	- Be aware that it might give an exception if you try to convert the underlying data to some incompatible type.
 
-Lets see this simple query in more detail.
+Let's see this simple query in more detail.
 Where we list all entries in table Streams and return all columns.
 
 ```java
@@ -631,6 +630,7 @@ createView(String name)
 .replase()
 - Whether or not the view creation is autorized to overwrite over existing views.
 ```
+
 
 ## Further Documentation
 
