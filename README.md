@@ -1,10 +1,11 @@
 # PDB
 
-bla bla
+PulseDB is a database-mapping software library in Java.  PDB allows transparent access to a great variety of database implementations.
+PDB DSL cover most of SQL and allows a 
 
-## Getting the Jar
+## Using PDB
 
-You just nee to add the following dependency to your Maven pom.
+Add the following dependency to your Maven pom.
 
     <dependencies>
       <dependency>
@@ -14,6 +15,8 @@ You just nee to add the following dependency to your Maven pom.
       </dependency>
     </dependencies>
 
+And you are ready to go!
+
 ## Getting  started
 
 ### Index
@@ -22,7 +25,6 @@ You just nee to add the following dependency to your Maven pom.
 - [Establish connection](#establish-connection)
 - Table Manipulation
 	- [Create Table](#create-table)
-	- [Create View](#create-view)	
 	- [Drop Table](#drop-table)
 	- [Alter Table](#alter-table)
 - Data Manipulation
@@ -30,6 +32,7 @@ You just nee to add the following dependency to your Maven pom.
 	- [Update and Delete Queries](#update-and-delete-queries)
 	- [Truncate Queries](#truncate-queries)
 	- [Selection Queries](#selection-queries)
+- [Create View](#create-view)	
 
 ### Example Description
 
@@ -123,7 +126,8 @@ DbEntity stream_table =
 			new DbFk()
 				.addColumn("data_type_id")
 				.setForeignTable("data_type")
-				.addForeignColumn("id"));
+				.addForeignColumn("id"))
+		.addIndex(false);
 
 engine.addEntity(stream_table);
 ```
@@ -140,6 +144,13 @@ A foreign key is created with DbFk, and it is defined using methods:
     
     .addForeignColumn(String... foreigmColumns)
     - Selects the affected columns in the foreign table.
+
+Wait! Looks like we also created an index in the Stream table.
+	
+	.addIndex(String... columns)
+	.addIndex(boolean unique, String... columns)
+	- Creates and index for the listed columns.
+	- If not sepecified index is not unique.
 
 The rest of the example case is created with the following code:
 
@@ -171,13 +182,10 @@ DbEntity stream_to_module_table =
 engine.addEntity(stream_to_module_table);
 ```
 
-### Create View
-
-bla bla
-
 ### Drop Table
 
-bla bla
+When you are done with this example you may want to clean the database.
+You have two possibilities, which are as follows:
 
 ```java
 engine.removeEntity("module");
@@ -194,7 +202,30 @@ engine.dropEntity("stream_to_module");
 
 ### Alter Table
 
+We do not have to be so dramatic. Probably you just want to change something in the tables.
+
+```java
+Expression alterColumn = new AlterColumn(table("TEST"), new DbColumn("COL1", DbColumnType.INT).addConstraint(DbColumnConstraint.NOT_NULL));
+
+engine.executeUpdate(alterColumn);
+```
+
+	AlterColumn(Expression table, DbColumn column)
+	- bla bla
+
+	DbColumn(String name, DbColumnType dbColumnType, boolean autoInc)
+	- bla bla
+
 bla bla
+
+```java
+Expression dropPrimaryKey = dropPK(table("TEST"));
+
+engine.executeUpdate(dropPrimaryKey);
+```
+
+	DropPrimaryKey(Expression table)
+	- bla bla
 
 ### Insertion Queries
 
@@ -551,12 +582,47 @@ results = engine.query(
 	offset(Integer offset)
 	- Defines the offset for the start position of the resulting rows.
 
-## Documentation
+### Create View
 
-The presented examples cover most of the functionalities of PDB.
+bla bla
+
+```java
+Expression view = createView(
+
+engine.executeUpdate(view);
+```
+
+	createView()
+	- bla bla
+
+	.as(Query query)
+	- bla bla
+
+	.replase()
+	- bla bla
+
+bla bla
+
+## Further Documentation
+
 For more insight on the available functionality please consult the javadoc documentation.
+
+## Contact
+
+For more information please contact helpdesk@feedzai.com, we will happily answer your questions.
 
 ## License
 
-Apache V2
+Copyright 2013 Feedzai
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
 http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
